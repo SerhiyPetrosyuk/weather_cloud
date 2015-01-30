@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Weather Cloud</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="degree_sign">°</string>
+    <string name="title_activity_detai">DetaiActivity</string>
+    <string name="update_forecast">Update forecast</string>
+
+</resources>
