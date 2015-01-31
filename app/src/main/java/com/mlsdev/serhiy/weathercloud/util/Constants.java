@@ -7,5 +7,7 @@ public class Constants {
     
     public static String LOG_TAG = "FORECAST";
     public static final String CACHE_FILE_NAME = "forecast_cache";
+    public static final String DETAIL_WEATHER = "detail_weather";
+    public static final String COORDS = "coords";
 
 }

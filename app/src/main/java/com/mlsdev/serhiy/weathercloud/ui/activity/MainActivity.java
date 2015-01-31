@@ -3,10 +3,10 @@ package com.mlsdev.serhiy.weathercloud.ui.activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.ui.fragment.BaseFragment;
+import com.mlsdev.serhiy.weathercloud.ui.fragment.DetailWeatherInfoFragment;
 import com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment;
 
 
@@ -15,12 +15,13 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setActionBarIcon(R.drawable.ic_launcher);
-        
-        getSupportFragmentManager().beginTransaction()
+
+        getFragmentManager().beginTransaction()
+                .addToBackStack("")
                 .replace(R.id.fragment_holder_in_main_activity, new FetchWeatherFragment(), FetchWeatherFragment.class.getName())
-                    .commit();
+                .commit();
     }
 
     @Override
@@ -38,29 +39,24 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
 
-        getSupportFragmentManager().popBackStack();
-        int fragmentsCount = getSupportFragmentManager().getBackStackEntryCount();
-
-        if (fragmentsCount == 1)
+        
+        getFragmentManager().popBackStackImmediate();
+        int fragmentsCount = getFragmentManager().getBackStackEntryCount();
+        
+        
+        if (fragmentsCount == 1) {
             deactivateBackButton();
-        else
+        } else if (fragmentsCount > 1) {
+            String fragmentName = getFragmentManager().getBackStackEntryAt(fragmentsCount-1).getName();
+            BaseFragment fragment = (BaseFragment) getFragmentManager().findFragmentByTag(fragmentName);
+            getSupportActionBar().setTitle(fragment.getFragmentTitle());
+        } else {
             super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.action_settings :
-                return true;
-            case R.id.update_forecast :
-                BaseFragment fragment = (BaseFragment) getSupportFragmentManager()
-                        .findFragmentByTag(FetchWeatherFragment.class.getName());
-                fragment.getWeatherForecast(true);
-                break;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

@@ -4,11 +4,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowActionBar">false</item>
-        <item name="android:textColorPrimary">#fff</item>
         <item name="colorPrimary">#ff71d1a7</item>
         <item name="colorPrimaryDark">#ff000000</item>
-        <item name="android:textColorSecondary">#fff</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenu</item>
+    </style>
+
+    <style name="OverflowMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <!-- Required for pre-Lollipop. -->
+        <item name="overlapAnchor">false</item>
+
     </style>
     
 </resources>

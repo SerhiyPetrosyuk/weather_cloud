@@ -8,11 +8,11 @@ import android.net.Uri;
 public class UrlBuilder {
 
     private static final String BASE_DAILY_URL = "http://api.openweathermap.org/data/2.5/forecast/daily";
-    
-    private static final String QUERY_Q       = "q";
-    private static final String QUERY_MODE     = "mode";
-    private static final String QUERY_UNITS    = "units";
-    private static final String QUERY_CNT_DAYS = "cnt";
+
+    public static final String QUERY_Q       = "q";
+    public static final String QUERY_MODE     = "mode";
+    public static final String QUERY_UNITS    = "units";
+    public static final String QUERY_CNT_DAYS = "cnt";
 
     public static final String Q        = "";
     public static final String MODE     = "json";

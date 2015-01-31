@@ -19,21 +19,23 @@ public class Cache {
     public static void saveJsonForecast(Context context, String json, String location) {
         File cacheFile = new File(context.getCacheDir(), Constants.CACHE_FILE_NAME + "_" + location);
 
-        if (!cacheFile.exists()) {
-            try {
-                FileWriter fileWriter = new FileWriter(cacheFile, false);
-                fileWriter.write(json);
-                fileWriter.close();
-                Log.i(Constants.LOG_TAG, "Save JSON into the file");
-            } catch (IOException e) {
-                Log.e(Constants.LOG_TAG, "Open the file to write Error!");
-                e.printStackTrace();
-            }
+        try {
+            FileWriter fileWriter = new FileWriter(cacheFile, false);
+            fileWriter.write(json);
+            fileWriter.close();
+            Log.d(Constants.LOG_TAG, Constants.CACHE_FILE_NAME + "_" + location);
+            Log.i(Constants.LOG_TAG, "Save JSON into the file");
+        } catch (IOException e) {
+            Log.e(Constants.LOG_TAG, "Open the file to write Error!");
+            e.printStackTrace();
         }
     }// end saveJsonForecast
     
     public static String getJsonForecast(Context context, String location) {
         String json = null;
+        
+        Log.d(Constants.LOG_TAG, Constants.CACHE_FILE_NAME + "_" + location);
+        
         File cacheFile = new File(context.getCacheDir(), Constants.CACHE_FILE_NAME + "_" + location);
         
         if (cacheFile.exists()) {

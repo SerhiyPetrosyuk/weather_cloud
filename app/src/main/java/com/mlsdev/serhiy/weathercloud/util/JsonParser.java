@@ -1,6 +1,8 @@
 package com.mlsdev.serhiy.weathercloud.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.internet.ConnectToToUrl;
@@ -30,6 +32,10 @@ public class JsonParser {
     private static final String OWM_MIN         = "min";
     private static final String OWM_DATETIME    = "dt";
     private static final String OWM_DESCRIPTION = "main";
+    private static final String OWM_CITY        = "city";
+    private static final String OWM_COORD       = "coord";
+    public static final String OWM_LON         = "lon";
+    public static final String OWM_LAT         = "lat";
 
     public JsonParser(Context mContext) {
         this.mContext = mContext;
@@ -46,12 +52,38 @@ public class JsonParser {
         return Math.round(min) + mDegreeSign + "/" + Math.round(max) + mDegreeSign;
     }// end getMinMaxTemp
     
+    
+    private void saveCoord(JSONObject forecastJsonObject){
+        try {
+            JSONObject cityJsonObject  = forecastJsonObject.getJSONObject(OWM_CITY);
+            JSONObject coordJsonObject = cityJsonObject.getJSONObject(OWM_COORD);
+            double lon = coordJsonObject.getDouble(OWM_LON);
+            double lat = coordJsonObject.getDouble(OWM_LAT);
+            
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(Constants.COORDS + OWM_LON, Double.toString(lon));
+            editor.putString(Constants.COORDS + OWM_LAT, Double.toString(lat));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public List<String> getWeatherForecastFromJson(String json) {
         int countDays = Integer.parseInt(UrlBuilder.CNT_DAYS);
         List<String> forecast = new ArrayList<>();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        String unitsType = preferences.getString(
+                                mContext.getString(R.string.pref_units_key),
+                                mContext.getString(R.string.pref_units_metric)
+                            );
         
         try {
             JSONObject rootJsonObject = new JSONObject(json);
+            
+            saveCoord(rootJsonObject);
+            
             JSONArray jsonArrayForecast = rootJsonObject.getJSONArray(OWM_LIST);
             
             for (int i = 0; i < countDays; i++) {
@@ -63,6 +95,12 @@ public class JsonParser {
                 date = getReadableDate(jsonObjectDay.getLong(OWM_DATETIME));
                 double minTemp = jsonObjectDay.getJSONObject(OWM_TEMPERATURE).getDouble(OWM_MIN);
                 double maxTemp = jsonObjectDay.getJSONObject(OWM_TEMPERATURE).getDouble(OWM_MAX);
+                
+                if (unitsType.equals(mContext.getString(R.string.pref_units_imperial_entry))){
+                    minTemp = (minTemp * 1.8) + 32;
+                    maxTemp = (maxTemp * 1.8) + 32;
+                }
+                
                 description = jsonObjectDay.getJSONArray(OWM_WEATHER).getJSONObject(0).getString(OWM_DESCRIPTION);
                 minMaxTemp = getMinMaxTemp(minTemp, maxTemp);
 
