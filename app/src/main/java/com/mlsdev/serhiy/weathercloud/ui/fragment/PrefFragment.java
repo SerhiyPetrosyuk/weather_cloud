@@ -6,6 +6,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
+import android.view.View;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.asynctasks.UpdateWeatherAsyncTask;
@@ -21,17 +22,24 @@ public class PrefFragment extends PreferenceFragment implements Preference.OnPre
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.preference_screen);
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
+    }
 
-        super.setRetainInstance(true);
-        
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         BaseActivity activity = (BaseActivity)getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setTitle(getString(R.string.action_settings));
         activity.activateBackButton();
-        
-        addPreferencesFromResource(R.xml.preference_screen);
-        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
-        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setRetainInstance(true);
     }
 
     private void bindPreferenceSummaryToValue(Preference preference) {

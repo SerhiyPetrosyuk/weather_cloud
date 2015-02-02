@@ -6,7 +6,6 @@ import android.view.MenuItem;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.ui.fragment.BaseFragment;
-import com.mlsdev.serhiy.weathercloud.ui.fragment.DetailWeatherInfoFragment;
 import com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment;
 
 
@@ -16,14 +15,14 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setActionBarIcon(R.drawable.ic_launcher);
-
-        getFragmentManager().beginTransaction()
-                .addToBackStack("")
-                .replace(R.id.fragment_holder_in_main_activity, new FetchWeatherFragment(), FetchWeatherFragment.class.getName())
-                .commit();
+        if (getFragmentManager().findFragmentById(R.id.fragment_holder_in_main_activity) == null) {
+            getFragmentManager().beginTransaction()
+                    .addToBackStack("")
+                    .replace(R.id.fragment_holder_in_main_activity, new FetchWeatherFragment(), FetchWeatherFragment.class.getName())
+                    .commit();
+        }
     }
-
+    
     @Override
     protected int getLayoutResource() {
         return R.layout.activity_main;
@@ -39,17 +38,17 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
 
-        
+
         getFragmentManager().popBackStackImmediate();
         int fragmentsCount = getFragmentManager().getBackStackEntryCount();
-        
-        
-        if (fragmentsCount == 1) {
-            deactivateBackButton();
-        } else if (fragmentsCount > 1) {
+
+
+        if (fragmentsCount > 1) {
             String fragmentName = getFragmentManager().getBackStackEntryAt(fragmentsCount-1).getName();
             BaseFragment fragment = (BaseFragment) getFragmentManager().findFragmentByTag(fragmentName);
             getSupportActionBar().setTitle(fragment.getFragmentTitle());
+        } else if (fragmentsCount == 1) {
+            deactivateBackButton();
         } else {
             super.onBackPressed();
         }

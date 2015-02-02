@@ -4,6 +4,13 @@
     tools:context="com.mlsdev.serhiy.weathercloud.ui.activity.DetaiActivity">
 
     <item
+        android:id="@+id/action_share"
+        android:title="@string/share_action"
+        android:orderInCategory="1"
+        app:showAsAction="always"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"/>
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"

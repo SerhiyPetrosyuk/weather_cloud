@@ -20,6 +20,7 @@ import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.asynctasks.GetWeatherAsyncTask;
 import com.mlsdev.serhiy.weathercloud.asynctasks.UpdateWeatherAsyncTask;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
+import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.ui.listeners.ForecastListItemListener;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 import com.mlsdev.serhiy.weathercloud.util.JsonParser;
@@ -33,13 +34,19 @@ public class FetchWeatherFragment extends Fragment implements BaseFragment {
     private ArrayAdapter<String> mListViewAdapter = null;
 
     public FetchWeatherFragment() {
-        super.setRetainInstance(true);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((BaseActivity)getActivity()).deactivateBackButton();
+        ((BaseActivity)getActivity()).setActionBarIcon(R.drawable.ic_launcher);
     }
 
     @Override
@@ -98,7 +105,7 @@ public class FetchWeatherFragment extends Fragment implements BaseFragment {
 
         finedViews(rootView);
         getWeatherForecast(false);
-
+        setRetainInstance(true);
         return rootView;
 
     }

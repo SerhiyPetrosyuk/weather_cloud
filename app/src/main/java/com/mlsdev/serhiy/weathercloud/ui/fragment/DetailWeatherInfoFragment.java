@@ -1,9 +1,13 @@
 package com.mlsdev.serhiy.weathercloud.ui.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,16 +25,23 @@ import com.mlsdev.serhiy.weathercloud.util.Constants;
  */
 public class DetailWeatherInfoFragment extends Fragment implements BaseFragment {
 
+    private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
     private TextView mDetailInfoTextView = null;
+    private String mDetailWeather = null;
     
     public DetailWeatherInfoFragment() {
-        super.setRetainInstance(true);
+        
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         BaseActivity activity = (BaseActivity)getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setTitle(getString(R.string.detail_fragment));
@@ -42,6 +53,7 @@ public class DetailWeatherInfoFragment extends Fragment implements BaseFragment 
         View rootView = inflater.inflate(R.layout.fragment_detail_info, container, false);
         findViews(rootView);
         activateViews();
+        setRetainInstance(true);
         return rootView;
     }
     
@@ -53,16 +65,25 @@ public class DetailWeatherInfoFragment extends Fragment implements BaseFragment 
         Bundle args = getArguments();
         
         if (args != null){
-            String detailWeather = args.getString(Constants.DETAIL_WEATHER);
+            mDetailWeather = args.getString(Constants.DETAIL_WEATHER);
             
-            if (detailWeather != null)
-                mDetailInfoTextView.setText(detailWeather);
+            if (mDetailWeather != null)
+                mDetailInfoTextView.setText(mDetailWeather);
         }
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_detail, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+        ShareActionProvider shareActionProvider;
+        shareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        
+        if (shareActionProvider != null)
+            shareActionProvider.setShareIntent(createShareIntent());
+        else
+            Log.e(Constants.LOG_TAG, "Share action provider is null&");
+
     }
 
     @Override
@@ -78,6 +99,15 @@ public class DetailWeatherInfoFragment extends Fragment implements BaseFragment 
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    private Intent createShareIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, mDetailWeather + FORECAST_SHARE_HASHTAG);
+        
+        return intent;
     }
 
     @Override

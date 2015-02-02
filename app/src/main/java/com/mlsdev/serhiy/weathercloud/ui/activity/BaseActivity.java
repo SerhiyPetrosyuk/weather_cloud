@@ -30,7 +30,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     protected abstract int getLayoutResource();
 
-    protected void setActionBarIcon(int iconRes) {
+    public void setActionBarIcon(int iconRes) {
         mToolbar.setNavigationIcon(iconRes);
     }
     
@@ -43,6 +43,7 @@ public abstract class BaseActivity extends ActionBarActivity {
     public void deactivateBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setDisplayUseLogoEnabled(false);
         setActionBarIcon(R.drawable.ic_launcher);
         getSupportActionBar().setTitle(getString(R.string.app_name));
     }
