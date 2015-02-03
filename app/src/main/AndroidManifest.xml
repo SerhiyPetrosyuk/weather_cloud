@@ -20,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <provider
+            android:authorities="com.mlsdev.serhiy.weathercloud.app"
+            android:name=".data.WeatherProvider">
+            </provider>
 
     </application>
 
