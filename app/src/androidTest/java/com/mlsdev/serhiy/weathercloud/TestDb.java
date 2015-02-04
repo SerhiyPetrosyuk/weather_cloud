@@ -20,8 +20,11 @@ import static com.mlsdev.serhiy.weathercloud.data.WeatherContract.*;
  */
 public class TestDb  extends AndroidTestCase{
 
+    public static final String TEST_DATE = "20150204";
+    public static final String TEST_LOCATION_SETTINGS = "99705";
+
     public void testCreateDb() throws Exception {
-        mContext.deleteDatabase(WeatherEntry.TABLE_NAME);
+        mContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new WeatherDbHelper(mContext).getWritableDatabase();
         assertEquals(true, db.isOpen());
         db.close();
@@ -73,13 +76,12 @@ public class TestDb  extends AndroidTestCase{
     }
     
     static ContentValues createLocationValues() {
-        String testLocationSetting = "99705";
         String testCityName = "North Pole";
         double testLatitude = 64.7488;
         double testLongitude = -147.353;
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(LocationEntry.COLUMN_LOCATION_SETTING, testLocationSetting);
+        contentValues.put(LocationEntry.COLUMN_LOCATION_SETTING, TEST_LOCATION_SETTINGS);
         contentValues.put(LocationEntry.COLUMN_CITY_NAME, testCityName);
         contentValues.put(LocationEntry.COLUMN_COORD_LAT, testLatitude);
         contentValues.put(LocationEntry.COLUMN_COORD_LONG, testLongitude);
@@ -88,7 +90,6 @@ public class TestDb  extends AndroidTestCase{
     }
     
     static ContentValues createWeatherValues(long insertedRowId) {
-        String testDateText     = "20141205";
         Double testDegrees      = 1.1;
         Double testHuminity     = 1.2;
         Double testPressure     = 1.3;
@@ -101,7 +102,7 @@ public class TestDb  extends AndroidTestCase{
         // Fantastic.  Now that we have a location, add some weather!
         ContentValues contentValues = new ContentValues();
         contentValues.put(WeatherEntry.COLUMN_LOC_KEY, insertedRowId);
-        contentValues.put(WeatherEntry.COLUMN_DATETEXT, testDateText);
+        contentValues.put(WeatherEntry.COLUMN_DATETEXT, TEST_DATE);
         contentValues.put(WeatherEntry.COLUMN_DEGREES, testDegrees);
         contentValues.put(WeatherEntry.COLUMN_HUMIDITY, testHuminity);
         contentValues.put(WeatherEntry.COLUMN_PRESSURE, testPressure);

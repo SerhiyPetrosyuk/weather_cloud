@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.mlsdev.serhiy.weathercloud.R;
+import com.mlsdev.serhiy.weathercloud.ui.fragment.BaseFragment;
 
 /**
  * Created by android on 28.01.15.
@@ -37,13 +38,11 @@ public abstract class BaseActivity extends ActionBarActivity {
     public void activateBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 
     public void deactivateBackButton() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(false);
-        getSupportActionBar().setDisplayUseLogoEnabled(false);
         setActionBarIcon(R.drawable.ic_launcher);
         getSupportActionBar().setTitle(getString(R.string.app_name));
     }
@@ -59,5 +58,22 @@ public abstract class BaseActivity extends ActionBarActivity {
         }
         
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        getFragmentManager().popBackStackImmediate();
+        int fragmentsCount = getFragmentManager().getBackStackEntryCount();
+
+        if (fragmentsCount > 1) {
+            String fragmentName = getFragmentManager().getBackStackEntryAt(fragmentsCount-1).getName();
+            BaseFragment fragment = (BaseFragment) getFragmentManager().findFragmentByTag(fragmentName);
+            getSupportActionBar().setTitle(fragment.getFragmentTitle());
+        } else if (fragmentsCount == 1) {
+            deactivateBackButton();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

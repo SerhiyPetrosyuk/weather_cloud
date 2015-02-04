@@ -38,25 +38,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-
-
-        getFragmentManager().popBackStackImmediate();
-        int fragmentsCount = getFragmentManager().getBackStackEntryCount();
-
-
-        if (fragmentsCount > 1) {
-            String fragmentName = getFragmentManager().getBackStackEntryAt(fragmentsCount-1).getName();
-            BaseFragment fragment = (BaseFragment) getFragmentManager().findFragmentByTag(fragmentName);
-            getSupportActionBar().setTitle(fragment.getFragmentTitle());
-        } else if (fragmentsCount == 1) {
-            deactivateBackButton();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
