@@ -79,6 +79,16 @@ public class TestProvider extends AndroidTestCase{
             );
 
         TestDb.validateCursor(cursor, weatherValues);
+
+        cursor = mContext.getContentResolver().query(
+                WeatherEntry.buildWeatherLocationWithStartDate(TestDb.TEST_LOCATION_SETTINGS, TestDb.TEST_DATE),
+                null,
+                null,
+                null,
+                null
+        );
+
+        TestDb.validateCursor(cursor, weatherValues);
         
         database.close();
     }// end testWriteReadDb

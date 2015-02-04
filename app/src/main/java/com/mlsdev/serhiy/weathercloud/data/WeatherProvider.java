@@ -39,6 +39,24 @@ public class WeatherProvider extends ContentProvider {
     private static final String sLocationSettingsWithStartDataSelection = 
             LocationEntry.TABLE_NAME + "." + LocationEntry.COLUMN_LOCATION_SETTING + " = ? AND " +
             WeatherEntry.TABLE_NAME + "." + WeatherEntry.COLUMN_DATETEXT + " >= ? ";
+    public static final String sLocationSettingAndDaySelection = 
+            LocationEntry.TABLE_NAME + "." + LocationEntry.COLUMN_LOCATION_SETTING + " = ? AND " + 
+            WeatherEntry.TABLE_NAME + "." + WeatherEntry.COLUMN_DATETEXT + " = ? ";
+    
+    private static Cursor getWeatherByLocationSettingAndDay(Uri uri, String[] projection, String sortOrder) {
+        String locationSetting = WeatherEntry.getLocationSettingsFromUri(uri);
+        String day = WeatherEntry.getDateFromUri(uri);
+
+        return sWeatherByLocationIdQueryBuilder.query(
+                mDbHelper.getReadableDatabase(),
+                projection,
+                sLocationSettingAndDaySelection,
+                new String[]{locationSetting, day},
+                null,
+                null,
+                sortOrder
+            );
+    }
     
     private static Cursor getWeatherByLocationSettings(Uri uri, String[] projection, String sortOrder) {
         String locationSetting = WeatherEntry.getLocationSettingsFromUri(uri);
@@ -95,7 +113,7 @@ public class WeatherProvider extends ContentProvider {
         
         switch (URI_MATCHER.match(uri)){
             case WEATHER_WITH_LOCATION_AND_DATE :
-                resultCursor = getWeatherByLocationSettings(uri, projection, sortOrder);
+                resultCursor = getWeatherByLocationSettingAndDay(uri, projection, sortOrder);
                 break;
             case WEATHER_WITH_LOCATION :
                 resultCursor = getWeatherByLocationSettings(uri, projection, sortOrder);
