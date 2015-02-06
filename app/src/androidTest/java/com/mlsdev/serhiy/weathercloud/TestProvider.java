@@ -1,8 +1,10 @@
 package com.mlsdev.serhiy.weathercloud;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
@@ -19,17 +21,28 @@ public class TestProvider extends AndroidTestCase{
 
     public static final String LOG_TAG = TestProvider.class.getSimpleName();
 
-    public void testDeleteDb() throws Exception {
-        mContext.deleteDatabase(WeatherDbHelper.DATABASE_NAME);
+    public void deleteAllRecords(){
+        mContext.getContentResolver().delete(LocationEntry.CONTENT_URI, null, null);
+        mContext.getContentResolver().delete(WeatherEntry.CONTENT_URI, null, null);
+        
+        Cursor cursorLocation = mContext.getContentResolver().query(LocationEntry.CONTENT_URI,null,null,null,null);
+        assertEquals(0, cursorLocation.getCount());
+        cursorLocation.close();
+
+        Cursor cursorWeather = mContext.getContentResolver().query(WeatherEntry.CONTENT_URI,null,null,null,null);
+        assertEquals(0, cursorWeather.getCount());
+        cursorLocation.close();
+    }
+    
+    public void setUp(){
+        deleteAllRecords();
     }
     
     public void testWriteReadDb(){
-        WeatherDbHelper dbHelper = new WeatherDbHelper(getContext());
-        SQLiteDatabase database = dbHelper.getWritableDatabase();
-        
         ContentValues contentValues = TestDb.createLocationValues();
-        long insertedRowId = database.insert(LocationEntry.TABLE_NAME, null, contentValues);
-        
+        Uri insertedLocationUri = mContext.getContentResolver().insert(LocationEntry.CONTENT_URI, contentValues);
+        long insertedRowId = ContentUris.parseId(insertedLocationUri);
+                
         assertTrue(insertedRowId != -1);
         
         Cursor cursor = mContext.getContentResolver().query(
@@ -54,8 +67,9 @@ public class TestProvider extends AndroidTestCase{
         TestDb.validateCursor(cursor, contentValues);
         
         ContentValues weatherValues = TestDb.createWeatherValues(insertedRowId);
+        Uri insertedWeatherUri = mContext.getContentResolver().insert(WeatherEntry.CONTENT_URI, weatherValues);
+        long insertedWeatherRowId = ContentUris.parseId(insertedWeatherUri);
         
-        long insertedWeatherRowId = database.insert(WeatherEntry.TABLE_NAME, null, weatherValues);
         assertTrue(insertedWeatherRowId != -1);
         
         cursor = mContext.getContentResolver().query(
@@ -86,13 +100,48 @@ public class TestProvider extends AndroidTestCase{
                 null,
                 null,
                 null
-        );
+            );
 
         TestDb.validateCursor(cursor, weatherValues);
         
-        database.close();
     }// end testWriteReadDb
 
+    public void testUpdate(){
+        deleteAllRecords();
+        
+        ContentValues locationValues = TestDb.createLocationValues();
+        Uri insertedLocationUri = mContext.getContentResolver().insert(LocationEntry.CONTENT_URI, locationValues);
+        long insertedLocationId = ContentUris.parseId(insertedLocationUri);
+        assertTrue(insertedLocationId != -1);
+        
+        ContentValues valuesToUpdate = new ContentValues(locationValues);
+        valuesToUpdate.put(LocationEntry._ID, insertedLocationId);
+        valuesToUpdate.put(LocationEntry.COLUMN_CITY_NAME, "Vinnytsya");
+        
+        int updatedRowsLocation = mContext.getContentResolver().update(
+                LocationEntry.CONTENT_URI,
+                valuesToUpdate,
+                LocationEntry._ID + " = ? ",
+                new String[]{Long.toString(insertedLocationId)}
+            );
+        
+        assertEquals(updatedRowsLocation, 1);
+        
+        Cursor updatedLocationCursor = mContext.getContentResolver().query(
+                LocationEntry.buildLocationUri(insertedLocationId),
+                null,
+                null,
+                null,
+                null
+            );
+        
+        TestDb.validateCursor(updatedLocationCursor, valuesToUpdate);
+    }
+    
+    public void testDeleteRecordsAtEnd() {
+        deleteAllRecords();
+    }
+    
     public void testGetType() {
         String type = mContext.getContentResolver().getType(WeatherEntry.CONTENT_URI);
         assertEquals(WeatherEntry.CONTENT_TYPE, type);

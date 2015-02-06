@@ -24,6 +24,7 @@ import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.ui.listeners.ForecastListItemListener;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 import com.mlsdev.serhiy.weathercloud.util.JsonParser;
+import com.mlsdev.serhiy.weathercloud.util.Utility;
 
 /**
  * Created by android on 27.01.15.
@@ -77,8 +78,7 @@ public class FetchWeatherFragment extends Fragment implements BaseFragment {
     
     private void openPreferredLocationInMap() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String location = preferences.getString(getActivity().getString(R.string.pref_location_key), 
-                getActivity().getString(R.string.pref_location_default));
+        String location = Utility.getPreferredLocation(getActivity());
 
         String lon = preferences.getString(Constants.COORDS + JsonParser.OWM_LON, "0");
         String lat = preferences.getString(Constants.COORDS + JsonParser.OWM_LAT, "0");
@@ -118,11 +118,11 @@ public class FetchWeatherFragment extends Fragment implements BaseFragment {
     }// end finedViews
 
     private void getWeatherForecast(boolean isUpdating) {
-        new GetWeatherAsyncTask(getActivity(), mForecastListView, isUpdating).execute();
+        new GetWeatherAsyncTask(getActivity(), mForecastListView, isUpdating).execute(Utility.getPreferredLocation(getActivity()));
     }// end getWeatherForecast
 
     private void updateWeatherForecast() {
-        new UpdateWeatherAsyncTask(getActivity()).execute();
+        new UpdateWeatherAsyncTask(getActivity()).execute(Utility.getPreferredLocation(getActivity()));
     }// end getWeatherForecast
 
     @Override

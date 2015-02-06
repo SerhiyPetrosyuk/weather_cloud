@@ -1,14 +1,11 @@
 package com.mlsdev.serhiy.weathercloud.asynctasks;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.internet.ConnectToToUrl;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
 import com.mlsdev.serhiy.weathercloud.util.Cache;
@@ -25,7 +22,7 @@ import java.util.List;
 /**
  * Created by android on 27.01.15.
  */
-public class GetWeatherAsyncTask extends AsyncTask<Void, Void, List<String>> {
+public class GetWeatherAsyncTask extends AsyncTask<String, Void, List<String>> {
     
     private Context mContext = null;
     private ListView mListView = null;
@@ -38,10 +35,11 @@ public class GetWeatherAsyncTask extends AsyncTask<Void, Void, List<String>> {
     }
 
     @Override
-    protected List<String> doInBackground(Void... params) {
-        String location = null;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        location = preferences.getString(mContext.getString(R.string.pref_location_key), mContext.getString(R.string.pref_location_default));
+    protected List<String> doInBackground(String... params) {
+        
+        if (params.length == 0) { return null; }
+        
+        String location = params[0];
         JsonParser jsonParser = new JsonParser(mContext);
         List<String> forecast = new ArrayList<>();
         
@@ -65,10 +63,14 @@ public class GetWeatherAsyncTask extends AsyncTask<Void, Void, List<String>> {
 
     @Override
     protected void onPostExecute(List<String> forecast) {
-        ArrayAdapter<String> adapter = (ArrayAdapter<String>) mListView.getAdapter();
-        
-        if (mIsUpdate) { adapter.clear(); }
-        
-        adapter.addAll(forecast);
+        if (forecast != null){
+            ArrayAdapter<String> adapter = (ArrayAdapter<String>) mListView.getAdapter();
+
+            if (mIsUpdate) {
+                adapter.clear();
+            }
+
+            adapter.addAll(forecast);
+        }
     }
 }

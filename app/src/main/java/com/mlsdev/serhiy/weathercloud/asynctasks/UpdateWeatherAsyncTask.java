@@ -12,6 +12,7 @@ import com.mlsdev.serhiy.weathercloud.internet.ConnectToToUrl;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
 import com.mlsdev.serhiy.weathercloud.util.Cache;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
+import com.mlsdev.serhiy.weathercloud.util.Utility;
 
 import org.apache.commons.io.IOUtils;
 
@@ -21,7 +22,7 @@ import java.net.HttpURLConnection;
 /**
  * Created by android on 31.01.15.
  */
-public class UpdateWeatherAsyncTask extends AsyncTask<Void, Void, String>{
+public class UpdateWeatherAsyncTask extends AsyncTask<String, Void, Void>{
     
     private Context mContext = null;
     
@@ -30,9 +31,11 @@ public class UpdateWeatherAsyncTask extends AsyncTask<Void, Void, String>{
     }
 
     @Override
-    protected String doInBackground(Void... params) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String location = preferences.getString(mContext.getString(R.string.pref_location_key), mContext.getString(R.string.pref_location_default));
+    protected Void doInBackground(String... params) {
+
+        if (params.length == 0) { return null; }
+        
+        String location = Utility.getPreferredLocation(mContext);
 
         try {
             Log.d(Constants.LOG_TAG, "Get a forecast from API.");
