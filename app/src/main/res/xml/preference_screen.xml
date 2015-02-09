@@ -14,7 +14,7 @@
         android:title="@string/pref_units"
         android:entries="@array/pref_units_entries"
         android:entryValues="@array/pref_units_entries_values"
-        android:defaultValue="@string/pref_units_metric"
-        android:summary="@string/pref_units_metric_entry"/>
+        android:summary="@string/pref_units_metric"
+        android:defaultValue="@string/pref_units_metric_entry"/>
     
 </PreferenceScreen>

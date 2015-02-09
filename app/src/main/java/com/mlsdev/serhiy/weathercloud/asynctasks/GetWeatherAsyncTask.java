@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by android on 27.01.15.
  */
-public class GetWeatherAsyncTask extends AsyncTask<String, Void, List<String>> {
+public class GetWeatherAsyncTask extends AsyncTask<String, Void, Void> {
     
     private Context mContext = null;
     private ListView mListView = null;
@@ -35,7 +35,7 @@ public class GetWeatherAsyncTask extends AsyncTask<String, Void, List<String>> {
     }
 
     @Override
-    protected List<String> doInBackground(String... params) {
+    protected Void doInBackground(String... params) {
         
         if (params.length == 0) { return null; }
         
@@ -58,19 +58,19 @@ public class GetWeatherAsyncTask extends AsyncTask<String, Void, List<String>> {
         
         forecast.addAll(jsonParser.getWeatherForecastFromJson(json));
         
-        return forecast;
+        return null;
     }
 
-    @Override
-    protected void onPostExecute(List<String> forecast) {
-        if (forecast != null){
-            ArrayAdapter<String> adapter = (ArrayAdapter<String>) mListView.getAdapter();
-
-            if (mIsUpdate) {
-                adapter.clear();
-            }
-
-            adapter.addAll(forecast);
-        }
-    }
+//    @Override
+//    protected void onPostExecute(List<String> forecast) {
+//        if (forecast != null){
+//            ArrayAdapter<String> adapter = (ArrayAdapter<String>) mListView.getAdapter();
+//
+//            if (mIsUpdate) {
+//                adapter.clear();
+//            }
+//
+//            adapter.addAll(forecast);
+//        }
+//    }
 }

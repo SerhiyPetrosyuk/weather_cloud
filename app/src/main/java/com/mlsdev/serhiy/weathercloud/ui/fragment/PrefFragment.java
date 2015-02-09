@@ -15,7 +15,7 @@ import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 /**
  * Created by android on 30.01.15.
  */
-public class PrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, BaseFragment{
+public class PrefFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, StockFragment{
 
     private boolean mIsGetDefaultValues = true;
     
@@ -67,7 +67,7 @@ public class PrefFragment extends PreferenceFragment implements Preference.OnPre
             preference.setSummary(prefValue);
             
             if (!mIsGetDefaultValues)
-                new UpdateWeatherAsyncTask(getActivity()).execute();
+                new UpdateWeatherAsyncTask(getActivity()).execute(prefValue);
         }
         
         mIsGetDefaultValues = false;

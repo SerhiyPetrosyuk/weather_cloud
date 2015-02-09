@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.ui.fragment.BaseFragment;
+import com.mlsdev.serhiy.weathercloud.ui.fragment.StockFragment;
 
 /**
  * Created by android on 28.01.15.
@@ -26,13 +26,20 @@ public abstract class BaseActivity extends ActionBarActivity {
         if (mToolbar != null){
             setSupportActionBar(mToolbar);
         }
-        
+
     }
 
     protected abstract int getLayoutResource();
 
     public void setActionBarIcon(int iconRes) {
         mToolbar.setNavigationIcon(iconRes);
+    }
+
+    /**
+     * @param title The title of the current activity
+     * */
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
     }
     
     public void activateBackButton() {
@@ -58,22 +65,5 @@ public abstract class BaseActivity extends ActionBarActivity {
         }
         
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        getFragmentManager().popBackStackImmediate();
-        int fragmentsCount = getFragmentManager().getBackStackEntryCount();
-
-        if (fragmentsCount > 1) {
-            String fragmentName = getFragmentManager().getBackStackEntryAt(fragmentsCount-1).getName();
-            BaseFragment fragment = (BaseFragment) getFragmentManager().findFragmentByTag(fragmentName);
-            getSupportActionBar().setTitle(fragment.getFragmentTitle());
-        } else if (fragmentsCount == 1) {
-            deactivateBackButton();
-        } else {
-            super.onBackPressed();
-        }
     }
 }

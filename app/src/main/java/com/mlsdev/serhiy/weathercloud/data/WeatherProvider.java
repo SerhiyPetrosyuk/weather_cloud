@@ -20,6 +20,7 @@ public class WeatherProvider extends ContentProvider {
     private static final int WEATHER = 100;
     private static final int WEATHER_WITH_LOCATION = 101;
     private static final int WEATHER_WITH_LOCATION_AND_DATE = 102;
+    private static final int WEATHER_ID = 103;
     private static final int LOCATION = 300;
     private static final int LOCATION_ID = 301;
     
@@ -39,10 +40,10 @@ public class WeatherProvider extends ContentProvider {
     
     private static final String sLocationSettingsSelection = LocationEntry.TABLE_NAME + "." + LocationEntry.COLUMN_LOCATION_SETTING + " = ?";
     private static final String sLocationSettingsWithStartDataSelection = 
-            LocationEntry.TABLE_NAME + "." + LocationEntry.COLUMN_LOCATION_SETTING + " = ? AND " +
+            LocationEntry.TABLE_NAME + "." + LocationEntry.COLUMN_CITY_NAME + " = ? AND " +
             WeatherEntry.TABLE_NAME + "." + WeatherEntry.COLUMN_DATETEXT + " >= ? ";
     public static final String sLocationSettingAndDaySelection = 
-            LocationEntry.TABLE_NAME + "." + LocationEntry.COLUMN_LOCATION_SETTING + " = ? AND " + 
+            LocationEntry.TABLE_NAME + "." + LocationEntry.COLUMN_CITY_NAME + " = ? AND " +
             WeatherEntry.TABLE_NAME + "." + WeatherEntry.COLUMN_DATETEXT + " = ? ";
     public static final String sDeleteLocationRowSelection = LocationEntry.TABLE_NAME + "." + LocationEntry._ID + " = ? ";
     public static final String sDeleteWeatherRowSelection = WeatherEntry.TABLE_NAME + "." + WeatherEntry._ID + " = ? ";
@@ -94,6 +95,7 @@ public class WeatherProvider extends ContentProvider {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = CONTENT_AUTHORITY;
         
+        matcher.addURI(authority, PATH_WEATHER + "/#", WEATHER_ID);
         matcher.addURI(authority, PATH_WEATHER, WEATHER);
         matcher.addURI(authority, PATH_WEATHER + "/*", WEATHER_WITH_LOCATION);
         matcher.addURI(authority, PATH_WEATHER + "/*/*", WEATHER_WITH_LOCATION_AND_DATE);
@@ -128,6 +130,17 @@ public class WeatherProvider extends ContentProvider {
                         projection,
                         selection,
                         selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            case WEATHER_ID :
+                resultCursor = mDbHelper.getReadableDatabase().query(
+                        WeatherEntry.TABLE_NAME,
+                        projection,
+                        WeatherEntry._ID + " = ?",
+                        new String[]{String.valueOf(ContentUris.parseId(uri))},
                         null,
                         null,
                         sortOrder

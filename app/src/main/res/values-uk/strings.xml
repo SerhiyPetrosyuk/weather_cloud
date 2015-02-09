@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:xliff="http://schemas.android.com/apk/res-auto">
+
+    <string name="app_name">Weather Cloud</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Налаштування</string>
+    <string name="degree_sign">°</string>
+    <string name="title_activity_detai">DetaiActivity</string>
+    <string name="update_forecast">Оновити прогноз</string>
+
+    <string name="share_action">Поділитись</string>
+    
+    <string name="pref_location">Моя локація</string>
+    <string name="pref_location_default">Vinnytsya</string>
+    <string name="pref_location_key">pref_location_key</string>
+
+    <string name="pref_units">Одиниці виміру</string>
+    <string name="pref_units_metric">Метричні</string>
+    
+    <string name="pref_units_imperial_entry">imperial</string>
+    <string name="pref_units_metric_entry">metric</string>
+    
+    <string name="pref_units_key">pref_units_key</string>
+    <string-array name="pref_units_entries">
+        <item>Метричні</item>
+        <item>Імперські</item>
+    </string-array>
+    
+    <string-array name="pref_units_entries_values">
+        <item>metric</item>
+        <item>imperial</item>
+    </string-array>
+    
+    <string name="detail_fragment">Детально</string>
+    <string name="action_map">На крті</string>
+    <string name="test_max_temp">21°</string>
+    <string name="test_min_temp">15°</string>
+    <string name="test_date">Wednesday</string>
+    <string name="test_weather_desc">Cloudy</string>
+    <string name="test_today_date">Today, June 21</string>
+
+    <!-- Date label when displaying today's weather forecast [CHAR LIMIT=20] -->
+    <string name="today">Сьогодні</string>
+
+    <!-- Date label when displaying tomorrow's weather forecast [CHAR LIMIT=20] -->
+    <string name="tomorrow">Завтра</string>
+
+    <!-- Date format for displaying day of week and date (i.e. Mon Jun 1) [CHAR LIMIT=20] -->
+    <string name="format_full_friendly_date">
+        <xliff:g id="day">%1$s</xliff:g>, <xliff:g id="date">%2$s</xliff:g>
+    </string>
+    <string name="humidity">Humidity:</string>
+    <string name="wind_speed">Wind\'s speed:</string>
+    <string name="pressure">Pressure:</string>
+</resources>

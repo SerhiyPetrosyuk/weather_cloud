@@ -21,6 +21,18 @@
             </intent-filter>
         </activity>
         
+        <activity 
+            android:name=".ui.activity.DetailActivity"
+            android:label="@string/detail_fragment"
+            android:parentActivityName=".ui.activity.MainActivity">
+        </activity>
+
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:label="@string/detail_fragment"
+            android:parentActivityName=".ui.activity.MainActivity">
+        </activity>
+        
         <provider
             android:authorities="com.mlsdev.serhiy.weathercloud.app"
             android:name=".data.WeatherProvider">

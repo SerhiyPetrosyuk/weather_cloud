@@ -51,17 +51,6 @@ public class JsonParser {
         mDegreeSign = mContext.getString(R.string.degree_sign);
     }
 
-    private String getReadableDate(long time) {
-        Date date = new Date(time * 1000);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM d");
-        return dateFormat.format(date);
-    }
-    
-    private String getMinMaxTemp(double min, double max) {
-        return Math.round(min) + mDegreeSign + "/" + Math.round(max) + mDegreeSign;
-    }// end getMinMaxTemp
-    
-    
     private void saveCoord(){
             double lon = mForecast.getCity().getCoord().getLon();
             double lat = mForecast.getCity().getCoord().getLat();
@@ -75,12 +64,6 @@ public class JsonParser {
     public List<String> getWeatherForecastFromJson(String json) {
         List<String> forecast = new ArrayList<>();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mContext);
-        String unitsType = preferences.getString(
-                                mContext.getString(R.string.pref_units_key),
-                                mContext.getString(R.string.pref_units_metric)
-                            );
-        
         mForecast = new Gson().fromJson(json, Forecast.class);
         List<com.mlsdev.serhiy.weathercloud.models.List> daysList = mForecast.getList();
         mValuesList = new ArrayList<>(daysList.size());
@@ -89,22 +72,7 @@ public class JsonParser {
         long locationId = addLocation(mForecast.getCity());
         
         for (com.mlsdev.serhiy.weathercloud.models.List day : daysList){
-            String date         = getReadableDate(day.getDt());
-            String description  = day.getWeather().get(0).getMain();
-            String minMaxTemp   = null;
-
-            double minTemp = day.getTemp().getMin();
-            double maxTemp = day.getTemp().getMax();
-
-            if (unitsType.equals(mContext.getString(R.string.pref_units_imperial_entry))){
-                minTemp = (minTemp * 1.8) + 32;
-                maxTemp = (maxTemp * 1.8) + 32;
-            }
-            
-            minMaxTemp = getMinMaxTemp(minTemp, maxTemp);
-
             addContentValuesToVector(locationId, day);
-            forecast.add(date + " :: " + description + " :: " + minMaxTemp);
         }
             
         // If mValuesList.size() > 0 start multi insert

@@ -2,12 +2,92 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_detail_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:text="@string/hello_world"
-        android:layout_centerInParent="true"
-        android:textSize="27sp"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="5dp">
+            
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+                
+                <TextView
+                    android:id="@+id/tv_date_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/test_today_date"/>
+                
+                <TextView
+                    android:id="@+id/tv_max_temp_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/test_max_temp"/>
+
+                <TextView
+                    android:id="@+id/tv_min_temp_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/test_min_temp"/>
+
+                <TextView
+                    android:id="@+id/tv_humidity_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" 
+                    android:text="@string/humidity"/>
+
+                <TextView
+                    android:id="@+id/tv_wind_speed_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wind_speed"/>
+                
+                <TextView
+                    android:id="@+id/tv_pressure_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pressure"/>
+                
+                </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+                
+                <ImageView
+                    android:id="@+id/iv_icon_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/tv_desc_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:text="@string/test_weather_desc"/>
+                
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     
 </RelativeLayout>
