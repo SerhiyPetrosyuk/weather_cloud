@@ -24,8 +24,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
-                    android:text="@string/test_today_date"/>
+                    android:layout_marginBottom="10dp" />
                 
                 <TextView
                     android:id="@+id/tv_max_temp_detail_fragment"
@@ -33,34 +32,29 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/test_max_temp"/>
+                    android:layout_marginBottom="5dp" />
 
                 <TextView
                     android:id="@+id/tv_min_temp_detail_fragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:text="@string/test_min_temp"/>
+                    android:layout_marginBottom="10dp" />
 
                 <TextView
                     android:id="@+id/tv_humidity_detail_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" 
-                    android:text="@string/humidity"/>
+                    android:layout_height="wrap_content"  />
 
                 <TextView
                     android:id="@+id/tv_wind_speed_detail_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/wind_speed"/>
+                    android:layout_height="wrap_content" />
                 
                 <TextView
                     android:id="@+id/tv_pressure_detail_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pressure"/>
+                    android:layout_height="wrap_content" />
                 
                 </LinearLayout>
 
@@ -74,8 +68,7 @@
                 <ImageView
                     android:id="@+id/iv_icon_detail_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher"/>
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/tv_desc_detail_fragment"
@@ -83,8 +76,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/test_weather_desc"/>
+                    android:textSize="20sp" />
                 
                 </LinearLayout>
             </LinearLayout>

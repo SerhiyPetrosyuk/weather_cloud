@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.data.WeatherContract;
 import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
+import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.SettingsActivity;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 import com.mlsdev.serhiy.weathercloud.util.Utility;
@@ -48,7 +49,7 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
     private ImageView mIcon;
     private String mLocation;
     
-    private static int DETAIL_LOADER = 0;
+    private static int DETAIL_LOADER = 1;
 
     private String mDetailWeather = null;
     private long mWeatherRowId;
@@ -60,10 +61,12 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final BaseActivity activity = (BaseActivity)getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setTitle(getString(R.string.detail_fragment));
-        activity.activateBackButton();
+        if (!MainActivity.TWO_PANE) {
+            final BaseActivity activity = (BaseActivity) getActivity();
+            ActionBar actionBar = activity.getSupportActionBar();
+            actionBar.setTitle(getString(R.string.detail_fragment));
+            activity.activateBackButton();
+        }
     }
 
     @Override
@@ -81,7 +84,7 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
     @Override
     public void onResume() {
         super.onResume();
-        getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
+//        getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
     }
 
     private void findViews(View rootView){
@@ -117,12 +120,14 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_settings :
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                break;
-            default:
-                break;
+        if (!MainActivity.TWO_PANE) {
+            switch (item.getItemId()) {
+                case R.id.action_settings:
+                    startActivity(new Intent(getActivity(), SettingsActivity.class));
+                    break;
+                default:
+                    break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

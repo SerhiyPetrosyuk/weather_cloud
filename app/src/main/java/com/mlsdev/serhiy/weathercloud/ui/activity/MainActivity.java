@@ -6,21 +6,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mlsdev.serhiy.weathercloud.R;
+import com.mlsdev.serhiy.weathercloud.ui.fragment.DetailWeatherInfoFragment;
 import com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 
 
 public class MainActivity extends BaseActivity {
 
+    public static boolean TWO_PANE;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getFragmentManager().findFragmentById(R.id.fragment_holder_in_main_activity) == null) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_holder_in_main_activity, new FetchWeatherFragment(), FetchWeatherFragment.class.getName())
-                    .addToBackStack(FetchWeatherFragment.class.getName())
-                    .commit();
+        if (findViewById(R.id.detail_fragment_holder) != null){
+            TWO_PANE = true;
+        } else {
+            TWO_PANE = false;
         }
     }
     

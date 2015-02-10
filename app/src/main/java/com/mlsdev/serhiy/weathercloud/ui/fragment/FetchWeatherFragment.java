@@ -32,6 +32,7 @@ import com.mlsdev.serhiy.weathercloud.models.Forecast;
 import com.mlsdev.serhiy.weathercloud.models.Weather;
 import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.DetailActivity;
+import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.SettingsActivity;
 import com.mlsdev.serhiy.weathercloud.ui.adapters.ForecastCursorAdapter;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
@@ -49,7 +50,6 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
 
     private BaseActivity activity = null;
     private ListView mForecastListView = null;
-    private ArrayAdapter<String> mListViewAdapter = null;
     private String mLocation = null;
     private ForecastCursorAdapter mCursorAdapter = null;
     
@@ -150,7 +150,6 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
 
     private void finedViews(View rootView) {
         mCursorAdapter = new ForecastCursorAdapter(getActivity(), null, 0);
-        mListViewAdapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_forecast, R.id.tv_list_item_forecast);
         mForecastListView = (ListView) rootView.findViewById(R.id.lv_forecast);
         mForecastListView.setOnItemClickListener(new ForecastListItemListener());
         mForecastListView.setAdapter(mCursorAdapter);
@@ -185,8 +184,8 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mCursorAdapter.swapCursor(data);
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mCursorAdapter.swapCursor(cursor);
     }
 
     @Override
@@ -206,8 +205,17 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
             Intent intent = new Intent(getActivity(), DetailActivity.class);
             Bundle args = new Bundle();
             args.putLong(Constants.WEATHER_ROW_ID, weatherRowId);
-            intent.putExtra(Constants.DETAIL_WEATHER, args);
-            startActivity(intent);
+            
+            if (!MainActivity.TWO_PANE) {
+                intent.putExtra(Constants.DETAIL_WEATHER, args);
+                startActivity(intent);
+            } else {
+                DetailWeatherInfoFragment fragment = new DetailWeatherInfoFragment();
+                fragment.setArguments(args);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.detail_fragment_holder, fragment)
+                        .commit();
+            }
         }
     }
 }

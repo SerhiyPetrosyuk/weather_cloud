@@ -2,6 +2,7 @@ package com.mlsdev.serhiy.weathercloud.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.preference.PreferenceManager;
 
 import com.mlsdev.serhiy.weathercloud.R;
@@ -223,6 +224,12 @@ public class Utility {
             return R.drawable.ic_cloudy;
         }
         return -1;
+    }
+    
+    public static boolean isNetworkEnabled(Context context){
+        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        
+        return manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
     
 }

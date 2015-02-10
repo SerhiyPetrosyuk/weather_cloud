@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.internet.ConnectToToUrl;
@@ -35,7 +36,11 @@ public class UpdateWeatherAsyncTask extends AsyncTask<String, Void, Void>{
     protected Void doInBackground(String... params) {
 
         if (params.length == 0) { return null; }
-        
+            
+//        if (!Utility.isNetworkEnabled(mContext)) {
+//            return null;
+//        }
+
         String location = Utility.getPreferredLocation(mContext);
 
         try {
@@ -49,5 +54,12 @@ public class UpdateWeatherAsyncTask extends AsyncTask<String, Void, Void>{
         }// try-catch
         
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+//        if (!Utility.isNetworkEnabled(mContext)) {
+//            Toast.makeText(mContext, "Check the internet connection", Toast.LENGTH_SHORT).show();
+//        }
     }
 }

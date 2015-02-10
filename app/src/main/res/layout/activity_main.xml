@@ -10,9 +10,12 @@
         android:id="@+id/app_toolbar"
         layout="@layout/toolbar"/>
     
-    <FrameLayout
-        android:id="@+id/fragment_holder_in_main_activity"
+    <fragment
+        android:id="@+id/fragment_forecast"
+        android:name="com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment"
+        tools:layout="@layout/fragment_fetch_weather"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        tools:context="com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment"/>
 
 </LinearLayout>

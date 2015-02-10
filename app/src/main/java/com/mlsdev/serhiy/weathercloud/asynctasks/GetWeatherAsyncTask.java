@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.internet.ConnectToToUrl;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
 import com.mlsdev.serhiy.weathercloud.util.Cache;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 import com.mlsdev.serhiy.weathercloud.util.JsonParser;
+import com.mlsdev.serhiy.weathercloud.util.Utility;
 
 import org.apache.commons.io.IOUtils;
 
@@ -38,6 +40,10 @@ public class GetWeatherAsyncTask extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... params) {
         
         if (params.length == 0) { return null; }
+
+        if (!Utility.isNetworkEnabled(mContext)) {
+            return null;
+        }
         
         String location = params[0];
         JsonParser jsonParser = new JsonParser(mContext);
@@ -61,16 +67,10 @@ public class GetWeatherAsyncTask extends AsyncTask<String, Void, Void> {
         return null;
     }
 
-//    @Override
-//    protected void onPostExecute(List<String> forecast) {
-//        if (forecast != null){
-//            ArrayAdapter<String> adapter = (ArrayAdapter<String>) mListView.getAdapter();
-//
-//            if (mIsUpdate) {
-//                adapter.clear();
-//            }
-//
-//            adapter.addAll(forecast);
-//        }
-//    }
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        if (!Utility.isNetworkEnabled(mContext)) {
+            Toast.makeText(mContext, "Check the internet connection", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
