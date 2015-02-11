@@ -9,7 +9,7 @@
     <include
         android:id="@+id/app_toolbar"
         layout="@layout/toolbar"/>
-    
+
     <fragment
         android:id="@+id/fragment_forecast"
         android:name="com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment"

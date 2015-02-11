@@ -3,39 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" 
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_weather_icon"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_launcher"/>
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="14dp"
+        android:src="@drawable/ic_cloudy"/>
     
     <LinearLayout
+        android:gravity="center_vertical"
         android:id="@+id/ll_weather_desc"
         android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_weight="6"
+        android:layout_width="155dp"
         android:layout_height="match_parent">
         
         <TextView
             android:id="@+id/tv_date_in_list_item"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:textStyle="bold"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
             android:text="@string/test_date"/>
 
         <TextView
             android:id="@+id/tv_weather_in_list_item"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:text="@string/test_weather_desc"/>
         
         </LinearLayout>
@@ -43,26 +38,24 @@
     <LinearLayout
         android:id="@+id/ll_temp_desc"
         android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_weight="2"
-        android:layout_height="match_parent">
+        android:layout_width="145dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
 
         <TextView
             android:id="@+id/tv_max_temp_in_list_item"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:text="@string/test_max_temp"/>
 
         <TextView
             android:id="@+id/tv_min_temp_in_list_item"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
+            android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="14sp"
             android:text="@string/test_min_temp"/>
 
     </LinearLayout>
