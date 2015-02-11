@@ -71,7 +71,7 @@ public class PrefFragment extends PreferenceFragment implements Preference.OnPre
             
             if (!mIsGetDefaultValues) {
                 if (!Utility.isNetworkEnabled(getActivity())) {
-                    Toast.makeText(getActivity(), "Check the internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.internet_error), Toast.LENGTH_LONG).show();
                 } else {
                     getActivity().startService(
                             new Intent(getActivity(), WeatherService.class)

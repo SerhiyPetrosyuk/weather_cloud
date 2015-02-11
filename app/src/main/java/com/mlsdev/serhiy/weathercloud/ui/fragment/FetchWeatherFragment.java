@@ -139,7 +139,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         if (savedInstanceState != null && savedInstanceState.containsKey(POSITION_KEY)){
             mPosition = savedInstanceState.getInt(POSITION_KEY);
         } else {
-//            updateWeatherForecast();
+            updateWeatherForecast();
         }
         
         setHasOptionsMenu(true);
@@ -159,7 +159,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
 
     private void updateWeatherForecast() {
         if (!Utility.isNetworkEnabled(getActivity())) {
-            Toast.makeText(getActivity(), "Check the internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getActivity().getString(R.string.internet_error), Toast.LENGTH_LONG).show();
         } else {
             getActivity().startService(
                     new Intent(getActivity(), WeatherService.class)
