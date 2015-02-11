@@ -29,6 +29,7 @@ import com.mlsdev.serhiy.weathercloud.asynctasks.UpdateWeatherAsyncTask;
 import com.mlsdev.serhiy.weathercloud.data.WeatherContract;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
 import com.mlsdev.serhiy.weathercloud.models.Forecast;
+import com.mlsdev.serhiy.weathercloud.models.List;
 import com.mlsdev.serhiy.weathercloud.models.Weather;
 import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.DetailActivity;
@@ -52,6 +53,8 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
     private ListView mForecastListView = null;
     private String mLocation = null;
     private ForecastCursorAdapter mCursorAdapter = null;
+    private int mPosition = 0;
+    private static final String POSITION_KEY = "item_position_in_the_list_view";
     
     private static int FORECAST_LOADER = 0;
 
@@ -140,6 +143,10 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(POSITION_KEY)){
+            mPosition = savedInstanceState.getInt(POSITION_KEY);
+        }
+        
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_fetch_weather, container, false);
         finedViews(rootView);
@@ -186,6 +193,9 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         mCursorAdapter.swapCursor(cursor);
+        if (mPosition != ListView.INVALID_POSITION){
+            mForecastListView.setSelection(mPosition);
+        }
     }
 
     @Override
@@ -193,11 +203,19 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         mCursorAdapter.swapCursor(null);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (mPosition != ListView.INVALID_POSITION){
+            outState.putInt(POSITION_KEY, mPosition);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
     public class ForecastListItemListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            mPosition = position;
             ForecastCursorAdapter cursorAdapter = (ForecastCursorAdapter) parent.getAdapter();
             Cursor cursor = cursorAdapter.getCursor();
             cursor.moveToPosition(position);
