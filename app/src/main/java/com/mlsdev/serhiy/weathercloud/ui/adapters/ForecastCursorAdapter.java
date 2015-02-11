@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.data.WeatherContract;
+import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
 import com.mlsdev.serhiy.weathercloud.util.Utility;
 
 /**
@@ -28,7 +29,7 @@ public class ForecastCursorAdapter extends CursorAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return (position == 0) ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
+        return (position == 0  && !MainActivity.TWO_PANE) ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
     }
 
     @Override
@@ -63,7 +64,7 @@ public class ForecastCursorAdapter extends CursorAdapter {
         double minTemp = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP));
 
         // Handling with View Holder
-        int imageId = (viewHolder.viewType == VIEW_TYPE_TODAY) ? Utility.getArtResourceForWeatherCondition(weatherId)
+        int imageId = (viewHolder.viewType == VIEW_TYPE_TODAY && !MainActivity.TWO_PANE) ? Utility.getArtResourceForWeatherCondition(weatherId)
                 : Utility.getICResourceForWeatherCondition(weatherId);
         viewHolder.iconView.setImageResource(imageId);
         viewHolder.dateTextView.setText(Utility.getFriendlyDayString(context, dateString));
