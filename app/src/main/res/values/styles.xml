@@ -15,4 +15,17 @@
 
     </style>
     
+    <style name="list_item_text_view" parent="AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/background_floating_material_dark</item>
+    </style>
+    
+    <style name="list_item_text_view_22sp" parent="list_item_text_view">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="list_item_text_view_14sp" parent="list_item_text_view">
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

@@ -2,7 +2,7 @@
 <resources
     xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
-    <string name="app_name">Weather Cloud</string>
+    <string name="app_name">My Weather</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="degree_sign">°</string>
@@ -38,7 +38,8 @@
     <string name="test_min_temp">15°</string>
     <string name="test_date">Wednesday</string>
     <string name="test_weather_desc">Cloudy</string>
-    <string name="test_today_date">Today, June 21</string>
+    <string name="test_today_date">Today</string>
+    <string name="test_month_date">June 21</string>
 
     <!-- Date label when displaying today's weather forecast [CHAR LIMIT=20] -->
     <string name="today">Today</string>
@@ -50,7 +51,7 @@
     <string name="format_full_friendly_date">
         <xliff:g id="day">%1$s</xliff:g>, <xliff:g id="date">%2$s</xliff:g>
     </string>
-    <string name="humidity">Humidity:</string>
-    <string name="wind_speed">Wind\'s speed:</string>
-    <string name="pressure">Pressure:</string>
+    <string name="humidity">Humidity: <xliff:g id="humidity_id">%1$s</xliff:g> %%</string>
+    <string name="wind_speed">Wind\'s speed: <xliff:g id="wind_speed_id">%1$s</xliff:g> km/h NW</string>
+    <string name="pressure">Pressure: <xliff:g id="pressure_id">%1$s</xliff:g> hPa</string>
 </resources>

@@ -10,5 +10,7 @@ public class Constants {
     public static final String CACHE_FILE_NAME = "forecast_cache";
     public static final String DETAIL_WEATHER = "detail_weather";
     public static final String COORDS = "coords";
+    public static final String CITY_LOCATION = "city.location";
+
 
 }

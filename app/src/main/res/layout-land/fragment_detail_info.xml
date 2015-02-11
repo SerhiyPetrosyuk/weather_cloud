@@ -8,78 +8,107 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="5dp">
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/tv_date_detail_fragment"
+            <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:layout_height="match_parent"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:gravity="center_horizontal"
-                android:paddingTop="15dp"/>
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                android:paddingLeft="16dp">
+                
+                <TextView
+                    android:id="@+id/tv_day_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="#000"/>
+                
+                <TextView
+                    android:id="@+id/tv_month_detail_fragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"/>
+                </LinearLayout>
             
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
-                android:layout_weight="4"
+                android:layout_weight="7"
                 android:layout_height="match_parent"
-                android:paddingLeft="20dp"
-                android:paddingTop="15dp">
+                android:paddingLeft="10dp">
+
+                <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_max_temp_detail_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="96sp"
+                            android:layout_marginBottom="5dp"
+                            android:textColor="#000"/>
+
+                        <TextView
+                            android:id="@+id/tv_min_temp_detail_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="48sp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/iv_icon_detail_fragment"
+                            android:layout_width="144dp"
+                            android:layout_height="144dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_desc_detail_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:textSize="20sp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
                 
-                <TextView
-                    android:id="@+id/tv_max_temp_detail_fragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:layout_marginBottom="5dp" />
-
-                <TextView
-                    android:id="@+id/tv_min_temp_detail_fragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp" />
-
                 <TextView
                     android:id="@+id/tv_humidity_detail_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"  />
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"/>
 
                 <TextView
                     android:id="@+id/tv_wind_speed_detail_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="22sp"/>
                 
                 <TextView
                     android:id="@+id/tv_pressure_detail_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                
-                </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_weight="4"
-                android:layout_height="match_parent"
-                android:padding="10dp">
-                
-                <ImageView
-                    android:id="@+id/iv_icon_detail_fragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/tv_desc_detail_fragment"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp" />
+                    android:textSize="22sp"/>
                 
                 </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
     

@@ -98,6 +98,24 @@ public class Utility {
             }
         }
     }
+    
+    public static String getFormattedHumidity(Context context, double humidity){
+        return context.getString(
+                R.string.humidity,
+                Double.toString(humidity));
+    }
+
+    public static String getFormattedWindSpeed(Context context, double windSpeed){
+        return context.getString(
+                R.string.wind_speed,
+                Double.toString(windSpeed));
+    }
+
+    public static String getFormattedPressure(Context context, double pressure){
+        return context.getString(
+                R.string.pressure,
+                Double.toString(pressure));
+    }
 
     /**
      * Given a day, returns just the name to use for that day.
