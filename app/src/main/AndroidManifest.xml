@@ -36,8 +36,11 @@
         
         <provider
             android:authorities="com.mlsdev.serhiy.weathercloud.app"
-            android:name=".data.WeatherProvider">
+            android:name=".data.WeatherProvider"
+            android:syncable="true">
             </provider>
+        
+        <service android:name=".services.WeatherService"/>
 
     </application>
 

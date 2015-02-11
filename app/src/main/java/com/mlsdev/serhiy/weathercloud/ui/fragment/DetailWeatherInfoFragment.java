@@ -39,7 +39,6 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
 
     private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
     
-    private TextView mDate;
     private TextView mMaxTemp;
     private TextView mMinTemp;
     private TextView mHumidity;
@@ -48,6 +47,9 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
     private TextView mDesc;
     private ImageView mIcon;
     private String mLocation;
+    
+    private TextView mDayName;
+    private TextView mMonthName;
     
     private static int DETAIL_LOADER = 1;
 
@@ -88,7 +90,8 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
     }
 
     private void findViews(View rootView){
-        mDate = (TextView) rootView.findViewById(R.id.tv_date_detail_fragment);
+        mDayName = (TextView) rootView.findViewById(R.id.tv_day_detail_fragment);
+        mMonthName = (TextView) rootView.findViewById(R.id.tv_month_detail_fragment);
         mMaxTemp = (TextView) rootView.findViewById(R.id.tv_max_temp_detail_fragment);
         mMinTemp = (TextView) rootView.findViewById(R.id.tv_min_temp_detail_fragment);
         mHumidity = (TextView) rootView.findViewById(R.id.tv_humidity_detail_fragment);
@@ -170,17 +173,19 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
 
             boolean isMetric = Utility.isMetricUnits(getActivity());
 
-            String formattedDate = Utility.getFriendlyDayString(getActivity(), date);
+            String dayName = Utility.getDayName(getActivity(), date);
+            String monthAndDate =  Utility.getFormattedMonthDay(getActivity(), date);
             String minTempStr = Utility.formatTemperature(minTemp, isMetric);
             String maxTempStr = Utility.formatTemperature(maxTemp, isMetric);
 
-            mDate.setText(formattedDate);
+            mDayName.setText(dayName);
+            mMonthName.setText(monthAndDate);
             mDesc.setText(weather);
             mMaxTemp.setText(maxTempStr + getActivity().getString(R.string.degree_sign));
             mMinTemp.setText(minTempStr + getActivity().getString(R.string.degree_sign));
-            mHumidity.setText(getActivity().getString(R.string.humidity) + " " + Double.toString(humidity));
-            mPressure.setText(getActivity().getString(R.string.pressure) + " " + Double.toString(pressure));
-            mWindSpeed.setText(getActivity().getString(R.string.wind_speed) + " " + Double.toString(windSped));
+            mHumidity.setText(Utility.getFormattedHumidity(getActivity(), humidity));
+            mPressure.setText(Utility.getFormattedPressure(getActivity(), pressure));
+            mWindSpeed.setText(Utility.getFormattedWindSpeed(getActivity(), windSped));
             mIcon.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
         }
     }

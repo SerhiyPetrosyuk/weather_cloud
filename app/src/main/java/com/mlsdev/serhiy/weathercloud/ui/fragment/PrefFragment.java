@@ -1,5 +1,6 @@
 package com.mlsdev.serhiy.weathercloud.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -7,10 +8,12 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.asynctasks.UpdateWeatherAsyncTask;
+import com.mlsdev.serhiy.weathercloud.services.WeatherService;
 import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
+import com.mlsdev.serhiy.weathercloud.util.Utility;
 
 /**
  * Created by android on 30.01.15.
@@ -66,8 +69,15 @@ public class PrefFragment extends PreferenceFragment implements Preference.OnPre
         } else {
             preference.setSummary(prefValue);
             
-            if (!mIsGetDefaultValues)
-                new UpdateWeatherAsyncTask(getActivity()).execute(prefValue);
+            if (!mIsGetDefaultValues) {
+                if (!Utility.isNetworkEnabled(getActivity())) {
+                    Toast.makeText(getActivity(), "Check the internet connection", Toast.LENGTH_SHORT).show();
+                } else {
+                    getActivity().startService(
+                            new Intent(getActivity(), WeatherService.class)
+                    );
+                }
+            }
         }
         
         mIsGetDefaultValues = false;

@@ -18,19 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.asynctasks.GetWeatherAsyncTask;
-import com.mlsdev.serhiy.weathercloud.asynctasks.UpdateWeatherAsyncTask;
-import com.mlsdev.serhiy.weathercloud.data.WeatherContract;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
-import com.mlsdev.serhiy.weathercloud.models.Forecast;
-import com.mlsdev.serhiy.weathercloud.models.List;
-import com.mlsdev.serhiy.weathercloud.models.Weather;
+import com.mlsdev.serhiy.weathercloud.services.WeatherService;
 import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.DetailActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
@@ -146,7 +139,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         if (savedInstanceState != null && savedInstanceState.containsKey(POSITION_KEY)){
             mPosition = savedInstanceState.getInt(POSITION_KEY);
         } else {
-            updateWeatherForecast();
+//            updateWeatherForecast();
         }
         
         setHasOptionsMenu(true);
@@ -164,12 +157,14 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         mForecastListView.setAdapter(mCursorAdapter);
     }// end finedViews
 
-    private void getWeatherForecast(boolean isUpdating) {
-        new GetWeatherAsyncTask(getActivity(), mForecastListView, isUpdating).execute(Utility.getPreferredLocation(getActivity()));
-    }// end getWeatherForecast
-
     private void updateWeatherForecast() {
-        new UpdateWeatherAsyncTask(getActivity()).execute(Utility.getPreferredLocation(getActivity()));
+        if (!Utility.isNetworkEnabled(getActivity())) {
+            Toast.makeText(getActivity(), "Check the internet connection", Toast.LENGTH_SHORT).show();
+        } else {
+            getActivity().startService(
+                    new Intent(getActivity(), WeatherService.class)
+            );
+        }
     }// end getWeatherForecast
 
     @Override

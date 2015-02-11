@@ -1,14 +1,12 @@
-package com.mlsdev.serhiy.weathercloud.asynctasks;
+package com.mlsdev.serhiy.weathercloud.services;
 
-import android.app.Activity;
+import android.app.IntentService;
+import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.internet.ConnectToToUrl;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
 import com.mlsdev.serhiy.weathercloud.util.Cache;
@@ -22,23 +20,27 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 
 /**
- * Created by android on 31.01.15.
+ * Created by android on 11.02.15.
  */
-public class UpdateWeatherAsyncTask extends AsyncTask<String, Void, Void>{
+public class WeatherService extends IntentService {
     
-    private Context mContext = null;
+    private Context mContext;
     
-    public UpdateWeatherAsyncTask(Context context) {
-        mContext = context;
+    public WeatherService() {
+        super("MyWeatherService");
     }
 
     @Override
-    protected Void doInBackground(String... params) {
+    public void onCreate() {
+        super.onCreate();
+        mContext = getApplicationContext();
+    }
 
-        if (params.length == 0) { return null; }
-            
+    @Override
+    protected void onHandleIntent(Intent intent) {
+
         if (!Utility.isNetworkEnabled(mContext)) {
-            return null;
+            return;
         }
 
         String location = Utility.getPreferredLocation(mContext);
@@ -53,13 +55,6 @@ public class UpdateWeatherAsyncTask extends AsyncTask<String, Void, Void>{
             e.printStackTrace();
         }// try-catch
         
-        return null;
     }
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        if (!Utility.isNetworkEnabled(mContext)) {
-            Toast.makeText(mContext, "Check the internet connection", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
