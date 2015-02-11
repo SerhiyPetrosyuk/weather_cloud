@@ -3,6 +3,8 @@ package com.mlsdev.serhiy.weathercloud.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 
 import com.mlsdev.serhiy.weathercloud.R;
@@ -227,9 +229,20 @@ public class Utility {
     }
     
     public static boolean isNetworkEnabled(Context context){
-        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         
-        return manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (networkInfo == null){
+            return false;
+        } else if (!networkInfo.isConnected()){
+            return false;
+        } else if (!networkInfo.isAvailable()){
+            return false;
+        } else {
+            return true;
+        }
+        
     }
     
 }

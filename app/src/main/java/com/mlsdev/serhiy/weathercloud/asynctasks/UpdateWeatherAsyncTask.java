@@ -37,9 +37,9 @@ public class UpdateWeatherAsyncTask extends AsyncTask<String, Void, Void>{
 
         if (params.length == 0) { return null; }
             
-//        if (!Utility.isNetworkEnabled(mContext)) {
-//            return null;
-//        }
+        if (!Utility.isNetworkEnabled(mContext)) {
+            return null;
+        }
 
         String location = Utility.getPreferredLocation(mContext);
 
@@ -58,8 +58,8 @@ public class UpdateWeatherAsyncTask extends AsyncTask<String, Void, Void>{
 
     @Override
     protected void onPostExecute(Void aVoid) {
-//        if (!Utility.isNetworkEnabled(mContext)) {
-//            Toast.makeText(mContext, "Check the internet connection", Toast.LENGTH_SHORT).show();
-//        }
+        if (!Utility.isNetworkEnabled(mContext)) {
+            Toast.makeText(mContext, "Check the internet connection", Toast.LENGTH_SHORT).show();
+        }
     }
 }
