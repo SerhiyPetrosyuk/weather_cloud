@@ -145,6 +145,8 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null && savedInstanceState.containsKey(POSITION_KEY)){
             mPosition = savedInstanceState.getInt(POSITION_KEY);
+        } else {
+            updateWeatherForecast();
         }
         
         setHasOptionsMenu(true);
