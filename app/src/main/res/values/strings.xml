@@ -55,4 +55,7 @@
     <string name="wind_speed">Wind\'s speed: <xliff:g id="wind_speed_id">%1$s</xliff:g> km/h NW</string>
     <string name="pressure">Pressure: <xliff:g id="pressure_id">%1$s</xliff:g> hPa</string>
     <string name="internet_error">Check the internet connection</string>
+    
+    <string name="sync_account_type">weathercloud.serhiy.mlsdev.com</string>
+    <string name="content_authority">com.mlsdev.serhiy.weathercloud.app</string>
 </resources>

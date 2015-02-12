@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
-import com.mlsdev.serhiy.weathercloud.services.WeatherService;
+import com.mlsdev.serhiy.weathercloud.sync.ForecastSyncAdapter;
 import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.DetailActivity;
 import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
@@ -161,9 +161,10 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         if (!Utility.isNetworkEnabled(getActivity())) {
             Toast.makeText(getActivity(), getActivity().getString(R.string.internet_error), Toast.LENGTH_LONG).show();
         } else {
-            getActivity().startService(
-                    new Intent(getActivity(), WeatherService.class)
-            );
+//            getActivity().startService(
+//                new Intent(getActivity(), WeatherService.class)
+//            );
+            ForecastSyncAdapter.syncImmediately(getActivity());
         }
     }// end getWeatherForecast
 
