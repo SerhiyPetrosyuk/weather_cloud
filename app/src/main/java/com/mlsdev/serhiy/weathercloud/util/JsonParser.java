@@ -93,16 +93,21 @@ public class JsonParser {
                         null
                     );
                 
-                if (cursor.moveToFirst()){
-                    ContentValues contentValues = new ContentValues();
-                    DatabaseUtils.cursorRowToContentValues(cursor, contentValues);
+                try {
+                    if (cursor.moveToFirst()) {
+                        ContentValues contentValues = new ContentValues();
+                        DatabaseUtils.cursorRowToContentValues(cursor, contentValues);
 
-                    Log.v(Constants.LOG_TAG, "Query succeeded! **********");
-                    for (String key : contentValues.keySet()){
-                        Log.v(Constants.LOG_TAG, key + ": " + contentValues.getAsString(key));
+                        Log.v(Constants.LOG_TAG, "Query succeeded! **********");
+                        for (String key : contentValues.keySet()) {
+                            Log.v(Constants.LOG_TAG, key + ": " + contentValues.getAsString(key));
+                        }
+                    } else {
+                        Log.v(Constants.LOG_TAG, "Query failed! :( **********");
                     }
-                } else {
-                    Log.v(Constants.LOG_TAG, "Query failed! :( **********");
+                } finally {
+                    if (cursor != null)
+                        cursor.close();
                 }
             }
         }

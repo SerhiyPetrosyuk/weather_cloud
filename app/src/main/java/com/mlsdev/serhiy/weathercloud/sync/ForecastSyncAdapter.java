@@ -6,7 +6,9 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.SyncRequest;
 import android.content.SyncResult;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -28,6 +30,9 @@ import java.net.HttpURLConnection;
  * Created by android on 12.02.15.
  */
 public class ForecastSyncAdapter extends AbstractThreadedSyncAdapter {
+    public static final int SYNC_INTERVAL = 60 * 180;
+    public static final int SYNC_FLEXTIME = SYNC_INTERVAL / 3;
+    
     public ForecastSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
@@ -58,6 +63,22 @@ public class ForecastSyncAdapter extends AbstractThreadedSyncAdapter {
         ContentResolver.requestSync(getAccount(context), WeatherContract.CONTENT_AUTHORITY, bundle);
     }
 
+    public static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
+        Log.i(Constants.LOG_TAG, "*** configurePeriodicSync ***");
+        
+        Account account = getAccount(context);
+        String authority = WeatherContract.CONTENT_AUTHORITY;
+
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT){
+            SyncRequest.Builder builder = new SyncRequest.Builder();
+            SyncRequest syncRequest = builder.syncPeriodic(syncInterval, flexTime)
+                    .setSyncAdapter(account, authority)
+                    .build();
+            ContentResolver.requestSync(syncRequest);
+        } else {
+            ContentResolver.addPeriodicSync(account, authority, new Bundle(), syncInterval);
+        }
+    }
 
     /**
      * Helper method to get the fake account to be used with SyncAdapter, or make a new one
@@ -69,6 +90,7 @@ public class ForecastSyncAdapter extends AbstractThreadedSyncAdapter {
      * */ 
     
     public static Account getAccount(Context context){
+        
         AccountManager accountManager = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
         Account account = new Account("forecast_sync_adapter", context.getString(R.string.sync_account_type));
         
@@ -76,8 +98,21 @@ public class ForecastSyncAdapter extends AbstractThreadedSyncAdapter {
             if (!accountManager.addAccountExplicitly(account, "", null)){
                 return null;
             }
+            
+            Log.i(Constants.LOG_TAG, "*** Account was created ***");
+            onAccountCreated(account, context);
         }
-        
+
         return account;
+    }
+    
+    private static void onAccountCreated(Account account, Context context){
+        configurePeriodicSync(context, SYNC_INTERVAL, SYNC_FLEXTIME);
+        ContentResolver.setSyncAutomatically(account, WeatherContract.CONTENT_AUTHORITY, true);
+        syncImmediately(context);
+    }
+    
+    public static void initializeSyncAdapter(Context context) {
+        getAccount(context);
     }
 }

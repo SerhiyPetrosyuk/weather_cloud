@@ -81,6 +81,8 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         mLocation = Utility.getPreferredLocation(activity);
         
         getLoaderManager().initLoader(FORECAST_LOADER, null, this);
+        Log.i(Constants.LOG_TAG, "*** initializeSyncAdapter ***");
+        ForecastSyncAdapter.initializeSyncAdapter(getActivity());
     }
 
     @Override
@@ -138,14 +140,13 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null && savedInstanceState.containsKey(POSITION_KEY)){
             mPosition = savedInstanceState.getInt(POSITION_KEY);
-        } else {
-            updateWeatherForecast();
         }
         
         setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.fragment_fetch_weather, container, false);
         finedViews(rootView);
         setRetainInstance(true);
+
         return rootView;
 
     }
@@ -161,9 +162,6 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         if (!Utility.isNetworkEnabled(getActivity())) {
             Toast.makeText(getActivity(), getActivity().getString(R.string.internet_error), Toast.LENGTH_LONG).show();
         } else {
-//            getActivity().startService(
-//                new Intent(getActivity(), WeatherService.class)
-//            );
             ForecastSyncAdapter.syncImmediately(getActivity());
         }
     }// end getWeatherForecast

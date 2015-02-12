@@ -40,7 +40,7 @@
                             android:id="@+id/tv_max_temp_detail_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="96sp"
+                            android:textSize="86sp"
                             android:textColor="#000"
                             android:layout_marginTop="15dp"
                             android:gravity="center_horizontal"/>

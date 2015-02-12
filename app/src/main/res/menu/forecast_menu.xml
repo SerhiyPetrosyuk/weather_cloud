@@ -5,12 +5,15 @@
 
     <item
         android:id="@+id/update_forecast"
-        android:title="@string/update_forecast"
+        android:icon="@drawable/ic_action_refresh"
+        android:title=""
         android:orderInCategory="1"
-        app:showAsAction="never"/>
+        app:showAsAction="always"
+        />
 
     <item
         android:id="@+id/action_settings"
+        android:icon="@drawable/ic_action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />

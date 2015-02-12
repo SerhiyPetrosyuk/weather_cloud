@@ -1,6 +1,5 @@
 package com.mlsdev.serhiy.weathercloud.ui.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -11,7 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.services.WeatherService;
+import com.mlsdev.serhiy.weathercloud.sync.ForecastSyncAdapter;
 import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.util.Utility;
 
@@ -37,6 +36,7 @@ public class PrefFragment extends PreferenceFragment implements Preference.OnPre
         ActionBar actionBar = activity.getSupportActionBar();
         actionBar.setTitle(getString(R.string.action_settings));
         activity.activateBackButton();
+        actionBar.setLogo(R.drawable.ic_action_settings);
     }
 
     @Override
@@ -73,9 +73,7 @@ public class PrefFragment extends PreferenceFragment implements Preference.OnPre
                 if (!Utility.isNetworkEnabled(getActivity())) {
                     Toast.makeText(getActivity(), getActivity().getString(R.string.internet_error), Toast.LENGTH_LONG).show();
                 } else {
-                    getActivity().startService(
-                            new Intent(getActivity(), WeatherService.class)
-                    );
+                    ForecastSyncAdapter.syncImmediately(getActivity());
                 }
             }
         }
