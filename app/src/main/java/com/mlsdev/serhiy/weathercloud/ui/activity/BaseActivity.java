@@ -61,9 +61,19 @@ public abstract class BaseActivity extends ActionBarActivity {
 
         if (id == android.R.id.home){
             onBackPressed();
+            overridePendingTransition(R.anim.slide_back_in, R.anim.slide_back_out);
             return true;
         }
         
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (!(this instanceof MainActivity)){
+            overridePendingTransition(R.anim.slide_back_in, R.anim.slide_back_out);
+        }
     }
 }

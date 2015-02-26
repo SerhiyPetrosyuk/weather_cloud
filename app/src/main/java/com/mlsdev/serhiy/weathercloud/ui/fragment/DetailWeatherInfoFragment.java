@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ShareActionProvider;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -136,10 +137,20 @@ public class DetailWeatherInfoFragment extends Fragment implements LoaderManager
     }
     
     private Intent createShareIntent() {
+        String dayName = mDayName.getText().toString();
+        String monthName = mMonthName.getText().toString();
+        String temp = mMinTemp.getText().toString() + "/" + mMaxTemp.getText().toString();
+        String weatherDesc = mDesc.getText().toString();
+        
+//        String content = "<h3>" + dayName + " " + monthName + "</h3>" + "<p> Temp.: " + temp + "<br /> Weather: " + weatherDesc + "</p>";
+//        
+//        String body = Html.
+        
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, mDetailWeather + FORECAST_SHARE_HASHTAG);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Weather Cloud");
+        intent.putExtra(Intent.EXTRA_TEXT, dayName + " " + monthName + " Temp.: " + temp + " Weather: " + weatherDesc + FORECAST_SHARE_HASHTAG);
         
         return intent;
     }

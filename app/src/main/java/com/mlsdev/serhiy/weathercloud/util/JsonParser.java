@@ -38,7 +38,8 @@ public class JsonParser {
 
     private Context mContext = null;
     private String mDegreeSign = null;
-    
+
+    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     public static boolean DEBUG = false;
     public static final String OWM_LON         = "lon";
     public static final String OWM_LAT         = "lat";

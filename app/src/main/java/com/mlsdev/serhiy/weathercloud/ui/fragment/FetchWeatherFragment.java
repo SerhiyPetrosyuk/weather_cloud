@@ -104,6 +104,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
                 break;
             case R.id.action_settings :
                 startActivity(new Intent(activity, SettingsActivity.class));
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                 break;
             case R.id.action_map :
                 openPreferredLocationInMap();
@@ -223,6 +224,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
             if (!MainActivity.TWO_PANE) {
                 intent.putExtra(Constants.DETAIL_WEATHER, args);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
             } else {
                 DetailWeatherInfoFragment fragment = new DetailWeatherInfoFragment();
                 fragment.setArguments(args);
