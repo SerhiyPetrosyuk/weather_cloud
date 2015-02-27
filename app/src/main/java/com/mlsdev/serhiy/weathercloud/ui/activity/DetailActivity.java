@@ -2,6 +2,9 @@ package com.mlsdev.serhiy.weathercloud.ui.activity;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.ui.fragment.DetailWeatherInfoFragment;
@@ -28,4 +31,5 @@ public class DetailActivity extends BaseActivity {
     protected int getLayoutResource() {
         return R.layout.activity_detail;
     }
+
 }
