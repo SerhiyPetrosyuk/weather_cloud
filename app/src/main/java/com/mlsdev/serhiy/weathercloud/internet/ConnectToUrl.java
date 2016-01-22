@@ -12,7 +12,7 @@ import java.net.URL;
 /**
  * Created by android on 27.01.15.
  */
-public class ConnectToToUrl {
+public class ConnectToUrl {
     
     public static HttpURLConnection getHttpURLConnection(String urlString) {
         HttpURLConnection connection;

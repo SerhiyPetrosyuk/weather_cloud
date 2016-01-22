@@ -4,11 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" 
     android:layout_height="match_parent"
-    tools:context="com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity.FetchWeatherFragment">
+    tools:context="com.mlsdev.serhiy.weathercloud.view.activity.MainActivity.FetchWeatherFragment">
     
     <ListView
         android:id="@+id/lv_forecast"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    
+
+    <TextView
+        android:id="@+id/tv_forecast_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/empty_forecast_list"
+        android:gravity="center_horizontal"
+        android:padding="16dp"/>
 </FrameLayout>

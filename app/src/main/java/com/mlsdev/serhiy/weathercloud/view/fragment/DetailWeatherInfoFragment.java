@@ -1,4 +1,4 @@
-package com.mlsdev.serhiy.weathercloud.ui.fragment;
+package com.mlsdev.serhiy.weathercloud.view.fragment;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -25,9 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
-import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
-import com.mlsdev.serhiy.weathercloud.ui.activity.SettingsActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.BaseActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.MainActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.SettingsActivity;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 import com.mlsdev.serhiy.weathercloud.util.Utility;
 

@@ -1,4 +1,4 @@
-package com.mlsdev.serhiy.weathercloud.ui.widgets;
+package com.mlsdev.serhiy.weathercloud.view.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;

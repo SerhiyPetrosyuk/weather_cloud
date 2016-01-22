@@ -1,4 +1,4 @@
-package com.mlsdev.serhiy.weathercloud.ui.fragment;
+package com.mlsdev.serhiy.weathercloud.view.fragment;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -19,16 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
 import com.mlsdev.serhiy.weathercloud.sync.ForecastSyncAdapter;
-import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
-import com.mlsdev.serhiy.weathercloud.ui.activity.DetailActivity;
-import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
-import com.mlsdev.serhiy.weathercloud.ui.activity.SettingsActivity;
-import com.mlsdev.serhiy.weathercloud.ui.adapters.ForecastCursorAdapter;
+import com.mlsdev.serhiy.weathercloud.view.activity.BaseActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.DetailActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.MainActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.SettingsActivity;
+import com.mlsdev.serhiy.weathercloud.view.adapters.ForecastCursorAdapter;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 import com.mlsdev.serhiy.weathercloud.util.JsonParser;
 import com.mlsdev.serhiy.weathercloud.util.Utility;
@@ -40,7 +41,7 @@ import static com.mlsdev.serhiy.weathercloud.data.WeatherContract.*;
 /**
  * Created by android on 27.01.15.
  */
-public class FetchWeatherFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private BaseActivity activity = null;
     private ListView mForecastListView = null;
@@ -69,7 +70,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
             LocationEntry.COLUMN_CITY_NAME
     };
     
-    public FetchWeatherFragment() {
+    public ForecastFragment() {
     }
 
     @Override
@@ -144,7 +145,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         }
         
         setHasOptionsMenu(true);
-        View rootView = inflater.inflate(R.layout.fragment_fetch_weather, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         finedViews(rootView);
         setRetainInstance(true);
 
@@ -153,8 +154,10 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
     }
 
     private void finedViews(View rootView) {
+        View emptyView = rootView.findViewById(R.id.tv_forecast_empty);
         mCursorAdapter = new ForecastCursorAdapter(getActivity(), null, 0);
         mForecastListView = (ListView) rootView.findViewById(R.id.lv_forecast);
+        mForecastListView.setEmptyView(emptyView);
         mForecastListView.setOnItemClickListener(new ForecastListItemListener());
         mForecastListView.setAdapter(mCursorAdapter);
     }// end finedViews
@@ -166,6 +169,20 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
             ForecastSyncAdapter.syncImmediately(getActivity());
         }
     }// end getWeatherForecast
+
+    private void updateEmptyView() {
+        if (mCursorAdapter.getCount() == 0) {
+            TextView emptyForecastTextView = (TextView) getView().findViewById(R.id.tv_forecast_empty);
+
+            if (emptyForecastTextView != null) {
+                int messageResId = R.string.empty_forecast_list;
+                if (!Utility.isNetworkEnabled(getActivity())) {
+                    messageResId = R.string.internet_error;
+                }
+                emptyForecastTextView.setText(messageResId);
+            }
+        }
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -193,6 +210,7 @@ public class FetchWeatherFragment extends Fragment implements LoaderManager.Load
         if (mPosition != ListView.INVALID_POSITION){
             mForecastListView.setSelection(mPosition);
         }
+        updateEmptyView();
     }
 
     @Override

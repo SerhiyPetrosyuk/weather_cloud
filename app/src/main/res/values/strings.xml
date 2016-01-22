@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources
-    xmlns:xliff="http://schemas.android.com/apk/res-auto">
+<resources xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
     <string name="app_name">My Weather</string>
     <string name="hello_world">Hello world!</string>
@@ -10,28 +9,28 @@
     <string name="update_forecast">Update forecast</string>
 
     <string name="share_action">Share</string>
-    
+
     <string name="pref_location">Your location</string>
     <string name="pref_location_default">Vinnytsya</string>
     <string name="pref_location_key">pref_location_key</string>
 
     <string name="pref_units">Units</string>
     <string name="pref_units_metric">Metric</string>
-    
+
     <string name="pref_units_imperial_entry">imperial</string>
     <string name="pref_units_metric_entry">metric</string>
-    
+
     <string name="pref_units_key">pref_units_key</string>
     <string-array name="pref_units_entries">
         <item>Metric</item>
         <item>Imperial</item>
     </string-array>
-    
+
     <string-array name="pref_units_entries_values">
         <item>metric</item>
         <item>imperial</item>
     </string-array>
-    
+
     <string name="detail_fragment">Detail info</string>
     <string name="action_map">Map Location</string>
     <string name="test_max_temp">21°</string>
@@ -55,7 +54,13 @@
     <string name="wind_speed">Wind\'s speed: <xliff:g id="wind_speed_id">%1$s</xliff:g> km/h NW</string>
     <string name="pressure">Pressure: <xliff:g id="pressure_id">%1$s</xliff:g> hPa</string>
     <string name="internet_error">Check the internet connection</string>
-    
+
     <string name="sync_account_type">weathercloud.serhiy.mlsdev.com</string>
     <string name="content_authority">com.mlsdev.serhiy.weathercloud.app</string>
+    <string name="image_content_desc">weather icon</string>
+
+    <!-- Empty Weather Database -->
+    <string name="empty_forecast_list">No Weather Information Available</string>
+    
+    <string name="pref_location_status_key" translatable="false">location-status</string>
 </resources>

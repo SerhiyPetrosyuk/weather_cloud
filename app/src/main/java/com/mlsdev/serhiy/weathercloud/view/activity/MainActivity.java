@@ -1,14 +1,10 @@
-package com.mlsdev.serhiy.weathercloud.ui.activity;
+package com.mlsdev.serhiy.weathercloud.view.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.ui.fragment.DetailWeatherInfoFragment;
-import com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment;
-import com.mlsdev.serhiy.weathercloud.util.Constants;
 
 
 public class MainActivity extends BaseActivity {

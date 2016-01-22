@@ -12,10 +12,10 @@
 
     <fragment
         android:id="@+id/fragment_forecast"
-        android:name="com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment"
-        tools:layout="@layout/fragment_fetch_weather"
+        android:name="com.mlsdev.serhiy.weathercloud.view.fragment.ForecastFragment"
+        tools:layout="@layout/fragment_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.mlsdev.serhiy.weathercloud.ui.fragment.FetchWeatherFragment"/>
+        tools:context=".view.fragment.ForecastFragment"/>
 
 </LinearLayout>

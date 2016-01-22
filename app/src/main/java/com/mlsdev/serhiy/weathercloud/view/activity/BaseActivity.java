@@ -1,13 +1,11 @@
-package com.mlsdev.serhiy.weathercloud.ui.activity;
+package com.mlsdev.serhiy.weathercloud.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.ui.fragment.StockFragment;
 
 /**
  * Created by android on 28.01.15.

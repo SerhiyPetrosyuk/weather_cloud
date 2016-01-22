@@ -1,4 +1,4 @@
-package com.mlsdev.serhiy.weathercloud.ui.fragment;
+package com.mlsdev.serhiy.weathercloud.view.fragment;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.sync.ForecastSyncAdapter;
-import com.mlsdev.serhiy.weathercloud.ui.activity.BaseActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.BaseActivity;
 import com.mlsdev.serhiy.weathercloud.util.Utility;
 
 /**

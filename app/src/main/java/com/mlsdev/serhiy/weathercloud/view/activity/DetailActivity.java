@@ -1,13 +1,10 @@
-package com.mlsdev.serhiy.weathercloud.ui.activity;
+package com.mlsdev.serhiy.weathercloud.view.activity;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.ui.fragment.DetailWeatherInfoFragment;
+import com.mlsdev.serhiy.weathercloud.view.fragment.DetailWeatherInfoFragment;
 import com.mlsdev.serhiy.weathercloud.util.Constants;
 
 /**

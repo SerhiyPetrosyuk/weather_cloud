@@ -13,21 +13,12 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.data.WeatherContract;
-import com.mlsdev.serhiy.weathercloud.internet.ConnectToToUrl;
-import com.mlsdev.serhiy.weathercloud.internet.UrlBuilder;
 import com.mlsdev.serhiy.weathercloud.models.City;
 import com.mlsdev.serhiy.weathercloud.models.Forecast;
-import com.mlsdev.serhiy.weathercloud.models.Weather;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 
 import static com.mlsdev.serhiy.weathercloud.data.WeatherContract.*;
 

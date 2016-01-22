@@ -1,4 +1,4 @@
-package com.mlsdev.serhiy.weathercloud.ui.adapters;
+package com.mlsdev.serhiy.weathercloud.view.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mlsdev.serhiy.weathercloud.R;
 import com.mlsdev.serhiy.weathercloud.data.WeatherContract;
-import com.mlsdev.serhiy.weathercloud.ui.activity.MainActivity;
+import com.mlsdev.serhiy.weathercloud.view.activity.MainActivity;
 import com.mlsdev.serhiy.weathercloud.util.Utility;
 
 /**

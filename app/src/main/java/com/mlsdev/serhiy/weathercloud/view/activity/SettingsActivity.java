@@ -1,9 +1,9 @@
-package com.mlsdev.serhiy.weathercloud.ui.activity;
+package com.mlsdev.serhiy.weathercloud.view.activity;
 
 import android.os.Bundle;
 
 import com.mlsdev.serhiy.weathercloud.R;
-import com.mlsdev.serhiy.weathercloud.ui.fragment.PrefFragment;
+import com.mlsdev.serhiy.weathercloud.view.fragment.PrefFragment;
 
 /**
  * Created by android on 07.02.15.

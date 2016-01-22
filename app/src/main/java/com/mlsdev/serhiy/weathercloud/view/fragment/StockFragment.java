@@ -1,6 +1,4 @@
-package com.mlsdev.serhiy.weathercloud.ui.fragment;
-
-import android.app.Fragment;
+package com.mlsdev.serhiy.weathercloud.view.fragment;
 
 /**
  * Created by android on 30.01.15.
