@@ -8,27 +8,28 @@ import android.net.Uri;
 public class UrlBuilder {
 
     private static final String BASE_DAILY_URL = "http://api.openweathermap.org/data/2.5/forecast/daily";
+    private static final String APP_ID = "1b094281a2dfa7e9af1d073394b220ad";
 
-    public static final String QUERY_Q       = "q";
-    public static final String QUERY_MODE     = "mode";
-    public static final String QUERY_UNITS    = "units";
+    public static final String QUERY_Q = "q";
+    public static final String QUERY_MODE = "mode";
+    public static final String QUERY_UNITS = "units";
     public static final String QUERY_CNT_DAYS = "cnt";
-
-    public static final String Q        = "";
-    public static final String MODE     = "json";
-    public static final String UNITS    = "metric";
+    public static final String QUERY_APP_ID = "appid";
+    public static final String MODE = "json";
+    public static final String UNITS = "metric";
     public static final String CNT_DAYS = "10";
-    
+
     public static String getUrlString(String cityName) {
         Uri uriBuilder = Uri.parse(BASE_DAILY_URL).buildUpon()
                 .appendQueryParameter(QUERY_Q, cityName)
                 .appendQueryParameter(QUERY_MODE, MODE)
                 .appendQueryParameter(QUERY_UNITS, UNITS)
                 .appendQueryParameter(QUERY_CNT_DAYS, CNT_DAYS)
+                .appendQueryParameter(QUERY_APP_ID, APP_ID)
                 .build();
-        
+
         return uriBuilder.toString();
-        
+
     }
-    
+
 }
